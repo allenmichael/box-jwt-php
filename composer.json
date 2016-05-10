@@ -1,0 +1,8 @@
+{
+    "name": "amsxbg/box-jwt",
+    "require": {
+        "guzzlehttp/guzzle": "^6.2",
+        "firebase/php-jwt": "^3.0",
+        "zendframework/zend-config": "^2.6"
+    }
+}
