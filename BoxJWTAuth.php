@@ -1,8 +1,9 @@
 <?php 
 
 require_once('./vendor/autoload.php');
-require_once('./BoxConfig.php');
+require_once('./Config/BoxConfig.php');
 require_once('./BoxClient.php');
+require_once('./Config/BoxConstants.php');
 
 use \Firebase\JWT\JWT;
 use GuzzleHttp\Client;
@@ -12,24 +13,18 @@ use GuzzleHttp\Promise;
 class BoxJWTAuth {
     private $BoxConfig;
     private $privateKey;
-    private $jwtToken;
     private $issuedAt;
     private $notBefore;  
     private $expire;
     private $jwtData;
-    const AUTH_URL = 'https://api.box.com/oauth2/token';
-    const GRANT_TYPE = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
-    const ENTERPRISE_TYPE = "enterprise";
-    const USER_TYPE = "user";
     
-    function __construct($BoxConfig = null, $configPath = 'box.config.php') {
+    function __construct($BoxConfig = null, $configPath = BOX_CONSTANTS::CONFIG_PATH) {
         if($BoxConfig != null) {
-            $this->BoxConfig = new BoxConfig($BoxConfig);
+            $this->BoxConfig = $BoxConfig;
         } else {
             $this->BoxConfig = new BoxConfig(new Zend\Config\Config(include $configPath));
         }
         $this->setPrivateKey();
-        $this->jwtToken = $this->genUuid();
     }
     
     private function setPrivateKey() {
@@ -50,43 +45,49 @@ class BoxJWTAuth {
 
     private function constructJwt($sub, $boxSubType) {
         $jwtData = array(
-            'typ' => 'JWT',
+            'typ' => BOX_CONSTANTS::TYPE_JWT,
             'kid' => $this->BoxConfig->jwtPublicKeyId,
             'iss' => $this->BoxConfig->clientId,
-            'aud' => self::AUTH_URL,
-            'jti' => $this->jwtToken,
+            'aud' => BOX_CONSTANTS::AUTH_CODE_JWT_ENDPOINT_STRING,
+            'jti' => $this->genUuid(),
             'exp' => time() + 30,
             'sub' => $sub,
             'box_sub_type' => $boxSubType,
         );
-        $jwt = JWT::encode($jwtData, $this->privateKey, "RS256");
+        $jwt = JWT::encode($jwtData, $this->privateKey, BOX_CONSTANTS::ALGORITHM);
         return $jwt;
     }
     
     private function jwtPostAuth($jwt) {
         $client = new Client();
-
-        $response = $client->request('POST', 'https://api.box.com/oauth2/token', [
-            'form_params' => [
-                'grant_type' => self::GRANT_TYPE,
-                'client_id' => $this->BoxConfig->clientId,
-                'client_secret' => $this->BoxConfig->clientSecret,
-                'assertion' => $jwt
-            ]
-        ]);
-        
-        return $response;
+        try {
+            $response = $client->request(BOX_CONSTANTS::POST, BOX_CONSTANTS::AUTH_CODE_JWT_ENDPOINT_STRING, [
+                'form_params' => [
+                    BOX_CONSTANTS::GRANT_TYPE => BOX_CONSTANTS::JWT_AUTHORIZATION_CODE,
+                    BOX_CONSTANTS::CLIENT_ID => $this->BoxConfig->clientId,
+                    BOX_CONSTANTS::CLIENT_SECRET => $this->BoxConfig->clientSecret,
+                    BOX_CONSTANTS::ASSERTION => $jwt
+                ]
+            ]);
+            return $response;
+        } catch(Exception $e) {
+            var_dump($e->getMessage());
+        }
     }
     
     public function adminToken() {
-        $jwt = $this->constructJwt($this->BoxConfig->enterpriseId, self::ENTERPRISE_TYPE);
+        $jwt = $this->constructJwt($this->BoxConfig->enterpriseId, BOX_CONSTANTS::TYPE_ENTERPRISE);
         $response = $this->jwtPostAuth($jwt);
         return json_decode($response->getBody());
     }
     
     public function userToken($userId) {
-        $jwt = $this->constructJwt($userId, self::USER_TYPE);
+        $jwt = $this->constructJwt($userId, BOX_CONSTANTS::TYPE_USER);
         $response = $this->jwtPostAuth($jwt);
-        return $response->access_token;
+        return json_decode($response->getBody());
+    }
+    
+    public function getBoxConfig() {
+        return $this->BoxConfig;
     }
 }
