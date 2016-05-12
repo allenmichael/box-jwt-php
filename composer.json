@@ -4,5 +4,8 @@
         "guzzlehttp/guzzle": "^6.2",
         "firebase/php-jwt": "^3.0",
         "zendframework/zend-config": "^2.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.3.*"
     }
 }
