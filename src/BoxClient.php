@@ -2,20 +2,17 @@
 
 namespace Box;
 
+use Box\Managers\BoxResourceManager;
 use Box\Managers\BoxUsersManager;
 use Box\Managers\BoxFoldersManager;
 use Box\Config\BoxConstants;
-use Box\Utils\Util;
-
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\Promise\Promise;
 
 class BoxClient {
     public $accessToken;
     public $headers;
     public $BoxConfig;
     
+    public $ResourceManager;
     public $UsersManager;
     public $FoldersManager;
     
@@ -28,29 +25,8 @@ class BoxClient {
     }
     
     private function initializeManagers() {
+        $this->ResourceManager = new BoxResourceManager($this);
         $this->UsersManager = new BoxUsersManager($this);
         $this->FoldersManager = new BoxFoldersManager($this);
     }
-    
-    function createBaseBoxRequest($method, $uri, array $additionalHeaders = [], $body = null, $fields = null) {
-        $headers = array_merge($this->headers, $additionalHeaders);
-        
-        if (is_string($uri)) {
-            $uri = new Uri($uri);
-        } elseif (!($uri instanceof UriInterface)) {
-            throw new \InvalidArgumentException(
-                'URI must be a string or Psr\Http\Message\UriInterface'
-            );
-        }
-        
-        $uri = Util::applyFields($uri, $fields);
-        
-        return new Request($method, $uri, $headers, $body);
-    }
-    
-    function executeBoxRequestAsync($request) {
-        $client = new Client();
-        return $client->sendAsync($request);
-    }
-    
 }

@@ -1,7 +1,7 @@
 <?php 
 namespace Box\Models\Request;
 class BoxPermissionsRequest {
-    public $canDownload = [self::CAN_DOWNLOAD => null];
+    public $can_download = null;
   
     const CAN_DOWNLOAD = "can_download";
     
