@@ -3,11 +3,6 @@ namespace Box\Models;
 
 abstract class BoxModel {
     
-    function __construct($obj, $args) {
-       $args = self::mergeParams($obj, $args); 
-       self::resolveModelProperties($this, $args);
-    }
-    
     protected function isValidDateTime($date) {
         
     }
@@ -18,6 +13,10 @@ abstract class BoxModel {
             return (json_last_error() === JSON_ERROR_NONE);
         }
         return false;
+    }
+    
+    protected function checkParamSetAndNotNull($args, $prop) {
+        return isset($args[$prop]) && $args[$prop] !== null;
     }
     
     protected function mergeParams($obj, $overwrites) {

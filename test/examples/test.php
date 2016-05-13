@@ -6,6 +6,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 
 $client = new Client();
-$sharedLink = new BoxSharedLinkRequest(["access" => "whatever"]);
+$sharedLink = new BoxSharedLinkRequest(["access" => "open", "permissions" => ["can_download" => true]]);
 var_dump($sharedLink);
 
