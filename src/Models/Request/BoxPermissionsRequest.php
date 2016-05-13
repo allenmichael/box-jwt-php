@@ -1,5 +1,5 @@
 <?php 
-
+namespace Box\Models\Request;
 class BoxPermissionsRequest {
     public $canDownload = [self::CAN_DOWNLOAD => null];
   

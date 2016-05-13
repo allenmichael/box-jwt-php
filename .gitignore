@@ -6,3 +6,4 @@ private_key.pem
 public_key.pem
 .DS_Store
 box.config.php
+composer.lock

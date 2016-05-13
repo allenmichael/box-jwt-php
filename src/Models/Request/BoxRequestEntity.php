@@ -1,4 +1,5 @@
 <?php
+namespace Box\Models\Request;
 
 class BoxRequestEntity {
     public $id;

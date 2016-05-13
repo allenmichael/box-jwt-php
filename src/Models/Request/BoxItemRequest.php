@@ -1,6 +1,7 @@
 <?php
+namespace Box\Models\Request;
 
-require_once('./Models/Request/BoxRequestEntity.php');
+use Box\Models\Request\BoxRequestEntity;
 
 class BoxItemRequest extends BoxRequestEntity {
     public $parent;

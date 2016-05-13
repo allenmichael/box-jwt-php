@@ -1,6 +1,6 @@
 <?php
-
-abstract class BOX_MODEL_CONSTANTS {
+namespace Box\Models;
+abstract class BoxModelConstants {
     const BOX_TYPE_FILE = 'file';
     const BOX_TYPE_DISCUSSION = 'discussion';
     const BOX_TYPE_COMMENT = 'comment';

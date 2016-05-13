@@ -1,6 +1,6 @@
 <?php
-
-abstract class BOX_CONSTANTS {
+namespace Box\Config;
+abstract class BoxConstants {
     const BOX_API_HOST_URI_STRING = "https://app.box.com/api/";
     const BOX_API_URI_STRING = "https://api.box.com/2.0/";
     const BOX_API_JWT_STRING = "https://api.box.com/";
@@ -96,4 +96,5 @@ abstract class BOX_CONSTANTS {
     const PUT = "PUT";
     const DELETE = "DELETE";
     const OPTIONS = "OPTIONS";
+    const HTTP_METHODS = [self::GET, self::POST, self::PUT, self::DELETE, self::OPTIONS];
 }

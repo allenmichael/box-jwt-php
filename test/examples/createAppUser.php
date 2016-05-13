@@ -1,12 +1,13 @@
 <?php
-
-require_once('./BoxJWTAuth.php');
-require_once('./BoxClient.php');
+include('./vendor/autoload.php');
+use Box\Auth\BoxJWTAuth;
+use Box\BoxClient;
 
 $boxJwt = new BoxJWTAuth();
 $boxConfig = $boxJwt->getBoxConfig();
 $adminToken = $boxJwt->adminToken();
 $BoxClient = new BoxClient($boxConfig, $adminToken->access_token);
+
 $promise = $BoxClient->UsersManager->createEnterpriseUserAsync(["name" => "test123"], ["avatar_url", "name"]);
 $promise->then(function($res) use ($boxJwt, $boxConfig) {
     $user = json_decode($res->getBody());

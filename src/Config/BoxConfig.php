@@ -1,5 +1,5 @@
 <?php
-
+namespace Box\Config;
 class BoxConfig {
     public $clientId;
     public $clientSecret;
