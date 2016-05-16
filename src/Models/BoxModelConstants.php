@@ -29,4 +29,8 @@ abstract class BoxModelConstants {
     const BOX_PERMISSION_TYPE_COMPANY = "Company";
     
     const BOX_FOLDER_AND_FILE_NAME_CHARACTER_LIMIT = 255;
+    
+    const NAME = "name";
+    const PARENT = "parent";
+    const ID = "id";
 }

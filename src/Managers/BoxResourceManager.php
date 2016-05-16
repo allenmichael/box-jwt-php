@@ -42,11 +42,28 @@ class BoxResourceManager {
         return $uri;
     } 
     
+    function checkPropertySetAndNotNull($obj, $prop) {
+        if(isset($obj->$prop) && is_string($obj->$prop)) {
+            return $obj->$prop !== null && trim($obj->$prop) !== ''; 
+        }
+        return isset($obj->$prop) && $obj->$prop !== null;
+    }
+    
+    function checkForRequiredProperties($obj, array $props) {
+        foreach ($props as $prop) {
+            if(!self::checkPropertySetAndNotNull($obj, $prop)) {
+                var_dump($prop);
+                return false;
+            }
+        }
+        return true;
+    }
+    
     function createBoxRequest($method, $uri, $headers = [], $body = null) {
         return new Request($method, $uri, $headers, $body);
     }
     
-    function alterBaseBoxRequest($request, $method = null, $uri = null, $headers = null, $body = null) {
+    function alterBaseBoxRequest($request, $method = null, $uri = null, $additionalHeaders = null, $body = null) {
         if($method != null) {
             $request = $request->withMethod($method);
         }
@@ -54,11 +71,11 @@ class BoxResourceManager {
             $uri = self::createUri($uri);
             $request = $request->withUri($uri);
         }
-        if($headers != null) {
-            $headers = self::mergeHeaders($this->config->headers, $headers);
+        if($additionalHeaders != null) {
+            $additionalHeaders = self::mergeHeaders($this->config->headers, $additionalHeaders);
         }
         if($body != null) {
-            $request = new Request($request->getMethod(), $request->getUri(), $headers, $body);
+            $request = new Request($request->getMethod(), $request->getUri(), $this->config->headers, $body);
         }
         return $request;
     }
@@ -75,5 +92,13 @@ class BoxResourceManager {
     function executeBoxRequest($request) {
         $client = new Client();
         return $client->send($request);
+    }
+    
+    function requestTypeResolver($request, $isAsync) {
+        if($isAsync) {
+            return self::executeBoxRequestAsync($request);
+        } else {
+            return self::executeBoxRequest($request);
+        }
     }
 } 

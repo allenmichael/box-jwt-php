@@ -8,4 +8,8 @@ abstract class BoxRequestModel extends BoxModel {
         $args = parent::mergeParams($obj, $args); 
         parent::resolveModelProperties($this, $args);
     }
+    
+    function toJson() {
+        return json_encode($this);
+    }
 }

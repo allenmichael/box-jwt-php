@@ -26,5 +26,8 @@ class BoxItemRequest extends BoxRequestModel {
         if(parent::checkParamSetAndNotNull($args, self::NAME) && strlen($args[self::NAME]) > BoxModelConstants::BOX_FOLDER_AND_FILE_NAME_CHARACTER_LIMIT) {
             throw new BoxSdkException(sprintf("%s property must be shorter than %s charaters", self::NAME, BoxModelConstants::BOX_FOLDER_AND_FILE_NAME_CHARACTER_LIMIT));
         }
+        
+        parent::__construct($this, $args);
     }
+    
 }
