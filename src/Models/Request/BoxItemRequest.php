@@ -6,7 +6,7 @@ use Box\Models\Request\BoxEntityRequest;
 use Box\Models\BoxModelConstants;
 use Box\Exceptions\BoxSdkException;
 
-class BoxItemRequest extends BoxRequestModel {
+class BoxItemRequest extends BoxEntityRequest {
     public $parent = null;
     public $name = null;
     public $description = null;
@@ -27,7 +27,7 @@ class BoxItemRequest extends BoxRequestModel {
             throw new BoxSdkException(sprintf("%s property must be shorter than %s charaters", self::NAME, BoxModelConstants::BOX_FOLDER_AND_FILE_NAME_CHARACTER_LIMIT));
         }
         
-        parent::__construct($this, $args);
+        parent::__construct($args);
     }
     
 }

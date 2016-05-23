@@ -25,7 +25,7 @@ class BoxFolderRequest extends BoxItemRequest {
             $args[self::OWNED_BY] = new BoxEntityRequest($args[self::OWNED_BY]);
         }
         
-        if(parent::checkParamSetAndNotNull($args, self::SYNC_STATE) && !in_array(strtoLower($args[self::SYNC_STATE]), self::SYNC_STATE)) {
+        if(parent::checkParamSetAndNotNull($args, self::SYNC_STATE) && !in_array(strtoLower($args[self::SYNC_STATE]), self::SYNC_STATE_VALUES)) {
             throw new BoxSdkInvalidArgumentException(self::ACCESS, implode(', ', self::SYNC_STATE_VALUES));
         }
         

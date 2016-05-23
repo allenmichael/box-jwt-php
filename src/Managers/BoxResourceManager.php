@@ -52,7 +52,6 @@ class BoxResourceManager {
     function checkForRequiredProperties($obj, array $props) {
         foreach ($props as $prop) {
             if(!self::checkPropertySetAndNotNull($obj, $prop)) {
-                var_dump($prop);
                 return false;
             }
         }
