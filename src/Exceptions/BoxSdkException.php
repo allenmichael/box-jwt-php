@@ -1,6 +1,8 @@
 <?php
+
 namespace Box\Exceptions;
 
-class BoxSdkException extends \Exception {
-    
+class BoxSdkException extends \Exception
+{
+
 }

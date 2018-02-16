@@ -1,32 +1,63 @@
-<?php 
+<?php
 
 namespace Box;
 
 use Box\Managers\BoxResourceManager;
 use Box\Managers\BoxUsersManager;
 use Box\Managers\BoxFoldersManager;
+use Box\Managers\BoxFilesManager;
 use Box\Config\BoxConstants;
 
-class BoxClient {
+class BoxClient
+{
+    /**
+     * @var \stdClass
+     */
     public $accessToken;
+
+    /**
+     * @var string[]
+     */
     public $headers;
+
+    /**
+     * @var \Box\Config\BoxConfig
+     */
     public $BoxConfig;
-    
-    public $ResourceManager;
-    public $UsersManager;
-    public $FoldersManager;
-    
-    function __construct($BoxConfig, $accessToken)
+
+    /**
+     * @var \Box\Managers\BoxResourceManager
+     */
+    public $resourceManager;
+
+    /**
+     * @var \Box\Managers\BoxUsersManager
+     */
+    public $usersManager;
+
+    /**
+     * @var \Box\Managers\BoxFoldersManager
+     */
+    public $foldersManager;
+
+    /**
+     * @var \Box\Managers\BoxFilesManager
+     */
+    public $filesManager;
+
+    public function __construct($BoxConfig, $accessToken)
     {
         $this->accessToken = $accessToken;
-        $this->headers = [BoxConstants::AUTH_HEADER_KEY => sprintf(BoxConstants::V2_AUTH_STRING, $accessToken)];
-        $this->BoxConfig = $BoxConfig;
+        $this->headers     = [BoxConstants::HEADER_KEY_AUTH => sprintf(BoxConstants::HEADER_VAL_V2_AUTH_STRING, $accessToken)];
+        $this->BoxConfig   = $BoxConfig;
         $this->initializeManagers();
     }
-    
-    private function initializeManagers() {
-        $this->ResourceManager = new BoxResourceManager($this);
-        $this->UsersManager = new BoxUsersManager($this);
-        $this->FoldersManager = new BoxFoldersManager($this);
+
+    private function initializeManagers()
+    {
+        $this->resourceManager = new BoxResourceManager($this);
+        $this->usersManager    = new BoxUsersManager($this);
+        $this->foldersManager  = new BoxFoldersManager($this);
+        $this->filesManager    = new BoxFilesManager($this);
     }
 }
