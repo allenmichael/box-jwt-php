@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('array_key_exists_and_not_null')) {
+if (!function_exists('array_key_exists_and_not_null')) {
     /**
      * Returns trueif array key is defined and associated value is not null.  Otherwise, false.
      *
@@ -15,7 +15,7 @@ if (!defined('array_key_exists_and_not_null')) {
     }
 }
 
-if (!defined('is_json')) {
+if (!function_exists('is_json')) {
     /**
      * Returns true if string is JSON.
      *
@@ -33,7 +33,7 @@ if (!defined('is_json')) {
     }
 }
 
-if (!defined('is_box_date_time')) {
+if (!function_exists('is_box_date_time')) {
     /**
      * @param string $date
      */
@@ -43,7 +43,7 @@ if (!defined('is_box_date_time')) {
     }
 }
 
-if (!defined('file_hash')) {
+if (!function_exists('file_hash')) {
     /**
      * @param string|resource|\Psr\Http\Message\StreamInterface $file       File path, file resource or StreamInterface
      *                                                                      instance.

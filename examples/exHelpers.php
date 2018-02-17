@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('createTempFile')) {
+if (!function_exists('createTempFile')) {
     /**
      * Create a temp file path.  If $autoPopulate is true (default), the temp
      * file will be created with auto generated content.
