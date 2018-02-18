@@ -10,7 +10,7 @@ trait TestHelpers
     protected function setupTestFolder()
     {
         $headers    = $this->getAsUserHeader();
-        $parentId   = '0';
+        $parentId   = BoxConstants::BOX_ROOT_FOLDER_ID;
 
         $folderObject = $this->createFolder(self::TEST_FOLDER_NAME, $parentId, $headers);
 

@@ -24,7 +24,7 @@ if (!$users->total_count) {
 $user    = $users->entries[0];
 $headers = [BoxConstants::HEADER_KEY_AS_USER => $user->id];
 
-$res        = $boxClient->foldersManager->getFolderInfo(0, null, $headers);
+$res        = $boxClient->foldersManager->getFolderInfo(BoxConstants::BOX_ROOT_FOLDER_ID, null, $headers);
 $folderInfo = json_decode($res->getBody());
 
 var_dump($folderInfo);

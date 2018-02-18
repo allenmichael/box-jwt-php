@@ -26,7 +26,7 @@ $user    = $users->entries[0];
 $headers = [BoxConstants::HEADER_KEY_AS_USER => $user->id];
 
 // upload file
-$parentId = '0';
+$parentId = BoxConstants::BOX_ROOT_FOLDER_ID;
 $filePath = createTempFile();
 $fileName = basename($filePath);
 

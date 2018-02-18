@@ -26,7 +26,7 @@ $user    = $users->entries[0];
 $headers = [BoxConstants::HEADER_KEY_AS_USER => $user->id];
 
 // Create folder 1
-$parentId = '0';
+$parentId = BoxConstants::BOX_ROOT_FOLDER_ID;
 $folderName = 'Test Folder';
 
 $folderRequest = new BoxFolderRequest(['name' => $folderName, 'parent' => ['id' => $parentId]]);
@@ -42,7 +42,6 @@ echo "Parent ID: {$parent->id}\n";
 echo "Parent Name: {$parent->name}\n";
 
 // Create folder 2
-//$parentId = '0';
 $parentId = $folderObject->id;
 $folderName = 'Test Sub Folder';
 
