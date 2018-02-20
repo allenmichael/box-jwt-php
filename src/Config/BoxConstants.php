@@ -45,8 +45,8 @@ abstract class BoxConstants
     const VERSIONS_PATH_STRING                         = '%s/versions';
     const COPY_PATH_STRING                             = '%s/copy';
     const COMMENTS_PATH_STRING                         = '%s/comments';
-    const THUMBNAIL_PATH_STRING                        = '%s/thumbnail.png';
-    const PREVIEW_PATH_STRING                          = '%s/preview.png';
+    const THUMBNAIL_PNG_PATH_STRING                    = '%s/thumbnail.png';
+    const THUMBNAIL_JPG_PATH_STRING                    = '%s/thumbnail.jpg';
     const TRASH_PATH_STRING                            = '%s/trash';
     const DISCUSSIONS_PATH_STRING                      = '%s/discussions';
     const COLLABORATIONS_PATH_STRING                   = '%s/collaborations';
@@ -106,6 +106,12 @@ abstract class BoxConstants
     const QUERY_PARAM_RECURSIVE   = 'recursive';
     const QUERY_PARAM_USER_TYPE   = 'user_type';
     const QUERY_PARAM_VERSION     = 'version';
+    const QUERY_PARAM_MIN_HEIGTH  = 'min_height';
+    const QUERY_PARAM_MIN_WIDTH   = 'min_width';
+    const QUERY_PARAM_MAX_HEIGHT  = 'max_height';
+    const QUERY_PARAM_MAX_WIDTH   = 'max_width';
+
+    const QUERY_PARAM_FIELDS_VALUE_EXPIRING_EMBED_LINK = 'expiring_embed_link';
 
     const GET          = 'GET';
     const POST         = 'POST';
@@ -116,4 +122,9 @@ abstract class BoxConstants
 
     const BOX_ROOT_FOLDER_ID   = '0';
     const BOX_ROOT_FOLDER_NAME = 'All Files';
+
+    const BOX_THUMBNAIL_FORMATS = [
+        'png' => self::THUMBNAIL_PNG_PATH_STRING,
+        'jpg' => self::THUMBNAIL_JPG_PATH_STRING,
+    ];
 }

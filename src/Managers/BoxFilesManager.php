@@ -36,7 +36,7 @@ class BoxFilesManager extends BoxResourceManager
      * https://developer.box.com/reference#files
      *
      * @param string   $id                File id.
-     * @param string[] $fields            Array of fields to return in response.
+     * @param string   $fields            Array of fields to return in response.
      * @param string[] $additionalHeaders Additional HTTP header key-value pairs.
      * @param bool     $runAsync          Run asynchronously.
      *
@@ -98,8 +98,8 @@ class BoxFilesManager extends BoxResourceManager
      */
     public function deleteFile($id, $additionalHeaders = null, $runAsync = false)
     {
-        $uri       = parent::createUri(BoxConstants::FILES_ENDPOINT_STRING . $id);
-        $request   = parent::alterBaseBoxRequest($this->getBaseBoxRequest(), BoxConstants::DELETE, $uri, $additionalHeaders);
+        $uri     = parent::createUri(BoxConstants::FILES_ENDPOINT_STRING . $id);
+        $request = parent::alterBaseBoxRequest($this->getBaseBoxRequest(), BoxConstants::DELETE, $uri, $additionalHeaders);
         return parent::requestTypeResolver($request, [], $runAsync);
     }
 
@@ -111,7 +111,7 @@ class BoxFilesManager extends BoxResourceManager
      * @param string   $sourceFileId        Source file id.
      * @param string   $destinationFolderId Destination folder id.  Root folder is always '0'.
      * @param string   $newName             New name of copied folder.
-     * @param string[] $fields              Array of fields to return in response.
+     * @param string   $fields              Array of fields to return in response.
      * @param string[] $additionalHeaders   Additional HTTP header key-value pairs.
      * @param bool     $runAsync            Run asynchronously.
      *
@@ -135,6 +135,10 @@ class BoxFilesManager extends BoxResourceManager
     /**
      * Download file.
      *
+     * If file referred by the file id doesn't exist, an exception will be thrown.  If the sink provided to receive the
+     * download is a file path, the handle to that file will still be open and will be in the body of the response.
+     * You can get the response from the exception.
+     *
      * https://developer.box.com/reference#download-a-file
      *
      * @param string                                            $fileId            File id.
@@ -155,6 +159,74 @@ class BoxFilesManager extends BoxResourceManager
         $uri       = parent::createUri(BoxConstants::FILES_ENDPOINT_STRING . sprintf(BoxConstants::CONTENT_PATH_STRING, $fileId), $urlParams);
         $request   = parent::alterBaseBoxRequest($this->getBaseBoxRequest(), BoxConstants::GET, $uri, $additionalHeaders);
         return parent::requestTypeResolver($request, $options, $runAsync);
+    }
+
+    /**
+     * Get file thumbnail.
+     *
+     * https://developer.box.com/reference#get-a-thumbnail-for-a-file
+     *
+     * From Box documentation:
+     *
+     * Sizes of 32x32, 64x64, 128x128, and 256x256 can be returned in the .png format and sizes of 32x32, 94x94,
+     * 160x160, and 320x320 can be returned in the .jpg format. Thumbnails can be generated for the image and video
+     * file formats listed here:
+     *
+     * http://community.box.com/t5/Managing-Your-Content/What-file-types-are-supported-by-Box-s-Content-Preview/ta-p/327
+     *
+     * @param string   $id                File id.
+     * @param string   $extension         File extension, e.g. "png" or "jpg"
+     * @param int      $min_height        Minimum height.
+     * @param int      $min_width         Minimum width.
+     * @param int      $max_height        Maximum height.
+     * @param int      $max_width         Maximum width.
+     * @param string[] $additionalHeaders Additional HTTP header key-value pairs.
+     * @param bool     $runAsync          Run asynchronously.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface|mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \Box\Exceptions\BoxSdkException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getThumbnail($id, $extension,
+                                 $min_height = null, $min_width = null, $max_height = null, $max_width = null,
+                                 $additionalHeaders = null, $runAsync = false)
+    {
+        $urlParams = $this->keepNonEmptyParams([
+            BoxConstants::QUERY_PARAM_MIN_HEIGTH => $min_height,
+            BoxConstants::QUERY_PARAM_MIN_WIDTH  => $min_width,
+            BoxConstants::QUERY_PARAM_MAX_HEIGHT => $max_height,
+            BoxConstants::QUERY_PARAM_MAX_WIDTH  => $max_width,
+        ]);
+
+        // Make sure we've got a acceptable extension.
+        $extension = strtolower($extension);
+        if (!in_array($extension, array_keys(BoxConstants::BOX_THUMBNAIL_FORMATS))) {
+            throw new BoxSdkException('The "extension" parameter must be one of these: ' . implode(', ', BoxConstants::BOX_THUMBNAIL_FORMATS));
+        }
+
+        $uri     = parent::createUri(BoxConstants::FILES_ENDPOINT_STRING . sprintf(BoxConstants::BOX_THUMBNAIL_FORMATS[$extension], $id), $urlParams);
+        $request = parent::alterBaseBoxRequest($this->getBaseBoxRequest(), BoxConstants::GET, $uri, $additionalHeaders);
+        return parent::requestTypeResolver($request, [], $runAsync);
+    }
+
+    /**
+     * Get file embed link.
+     *
+     * https://developer.box.com/reference#get-embed-link
+     *
+     * @param string   $id                File id.
+     * @param string[] $additionalHeaders Additional HTTP header key-value pairs.
+     * @param bool     $runAsync          Run asynchronously.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface|mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getFileEmbedLink($id, $additionalHeaders = null, $runAsync = false)
+    {
+        $urlParams = $this->keepNonEmptyParams([BoxConstants::QUERY_PARAM_FIELDS => BoxConstants::QUERY_PARAM_FIELDS_VALUE_EXPIRING_EMBED_LINK]);
+        $uri       = parent::createUri(BoxConstants::FILES_ENDPOINT_STRING . $id, $urlParams);
+        $request   = parent::alterBaseBoxRequest($this->getBaseBoxRequest(), BoxConstants::GET, $uri, $additionalHeaders);
+        return parent::requestTypeResolver($request, [], $runAsync);
     }
 
     /**

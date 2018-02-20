@@ -21,3 +21,27 @@ if (!function_exists('createTempFile')) {
         return $tempFileName;
     }
 }
+
+if (!function_exists('createTempImage')) {
+    function createTempImage()
+    {
+        // Create image
+        $png = imagecreatetruecolor(800, 600);
+        imagesavealpha($png, true);
+
+        $trans_colour = imagecolorallocatealpha($png, 0, 0, 0, 127);
+        imagefill($png, 0, 0, $trans_colour);
+
+        $red = imagecolorallocate($png, 255, 0, 0);
+        imagefilledellipse($png, 400, 300, 400, 300, $red);
+
+        // Create temp filename
+        $tempDir      = sys_get_temp_dir();
+        $tempFileName = $tempDir . DIRECTORY_SEPARATOR . 'box' . bin2hex(random_bytes(4)) . '.png';
+
+        // Save image
+        imagepng($png, $tempFileName);
+
+        return $tempFileName;
+    }
+}

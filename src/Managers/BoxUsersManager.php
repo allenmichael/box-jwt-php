@@ -33,7 +33,7 @@ class BoxUsersManager extends BoxResourceManager
      * https://developer.box.com/reference#create-app-user
      *
      * @param stirng[] $userRequest Array of user request
-     * @param string[] $fields      Array of fields to return in response.
+     * @param string   $fields      Array of fields to return in response.
      * @param bool     $runAsync    Run asynchronously.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface|\Psr\Http\Message\ResponseInterface
@@ -53,15 +53,15 @@ class BoxUsersManager extends BoxResourceManager
      *
      * https://developer.box.com/reference#get-all-users-in-an-enterprise
      *
-     * @param string   $userType          The type of user to search for. One of all, external or managed.
+     * @param string $userType            The type of user to search for. One of all, external or managed.
      *                                    The default is managed.
-     * @param null     $filterTerm        Only return users whose name or login matches the filter_term.
+     * @param null   $filterTerm          Only return users whose name or login matches the filter_term.
      *                                    See notes below for details on the matching.
-     * @param int      $offset            The offset of the item at which to begin the response.
-     * @param int      $limit             The maximum number of items to return.If none is provided,
+     * @param int    $offset              The offset of the item at which to begin the response.
+     * @param int    $limit               The maximum number of items to return.If none is provided,
      *                                    the default is 100 and the maximum is 1,000.
-     * @param string[] $fields            Array of fields to return in response.
-     * @param bool     $runAsync          Run asynchronously.
+     * @param string $fields              Array of fields to return in response.
+     * @param bool   $runAsync            Run asynchronously.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface|mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException

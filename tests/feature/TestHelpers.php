@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Box\Config\BoxConstants;
 use Box\Models\Request\BoxFolderRequest;
 use GuzzleHttp\Psr7\Response;
 

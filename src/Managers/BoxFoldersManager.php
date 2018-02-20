@@ -35,7 +35,7 @@ class BoxFoldersManager extends BoxResourceManager
      * https://developer.box.com/reference#get-folder-info
      *
      * @param string   $id                Folder id.  Root folder is always '0'.
-     * @param string[] $fields            Array of fields to return in response.
+     * @param string   $fields            Array of fields to return in response.
      * @param string[] $additionalHeaders Additional HTTP header key-value pairs.
      * @param bool     $runAsync          Run asynchronously.
      *
@@ -59,7 +59,7 @@ class BoxFoldersManager extends BoxResourceManager
      * @param int      $offset            The offset of the item at which to begin the response.
      * @param int      $limit             The maximum number of items to return.If none is provided,
      *                                    the default is 100 and the maximum is 1,000.
-     * @param string[] $fields            Array of fields to return in response.
+     * @param string   $fields            Array of fields to return in response.
      * @param string[] $additionalHeaders Additional HTTP header key-value pairs.
      * @param bool     $runAsync          Run asynchronously.
      *
@@ -123,7 +123,7 @@ class BoxFoldersManager extends BoxResourceManager
      * @param string   $sourceFolderId      Source folder id.
      * @param string   $destinationFolderId Destination folder id.  Root folder is always '0'.
      * @param string   $newName             New name of copied folder.
-     * @param string[] $fields              Array of fields to return in response.
+     * @param string   $fields              Array of fields to return in response.
      * @param string[] $additionalHeaders   Additional HTTP header key-value pairs.
      * @param bool     $runAsync            Run asynchronously.
      *
