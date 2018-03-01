@@ -1,6 +1,8 @@
 <?php
+
 namespace Box\Exceptions;
 
-abstract class BoxApiException extends \Exception {
-    
+abstract class BoxApiException extends \Exception
+{
+
 }
