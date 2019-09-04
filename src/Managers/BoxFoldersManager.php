@@ -30,6 +30,34 @@ class BoxFoldersManager extends BoxResourceManager
     }
 
     /**
+     * Search folder by name.
+     *
+     * https://developer.box.com/reference#searching-for-content
+     *
+     * @param string   $query             Folder name query string.
+     * @param string   $fields            Array of fields to return in response.
+     * @param string   $parentId          Id of parent to start search.
+     * @param string[] $additionalHeaders Additional HTTP header key-value pairs.
+     * @param bool     $runAsync          Run asynchronously.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface|mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function searchFolderByName($query, $fields = null, $parentId = null, $additionalHeaders = null, $runAsync = false)
+    {
+        $urlParams = $this->keepNonEmptyParams([
+            BoxConstants::QUERY_PARAM_QUERY               => $query,
+            BoxConstants::QUERY_PARAM_TYPE                => 'folder',
+            BoxConstants::QUERY_PARAM_CONTENT_TYPES       => 'name',
+            BoxConstants::QUERY_PARAM_FIELDS              => $fields,
+            BoxConstants::QUERY_PARAM_ANCESTOR_FOLDER_IDS => $parentId,
+        ]);
+        $uri       = parent::createUri(BoxConstants::SEARCH_ENDPOINT_STRING, $urlParams);
+        $request   = parent::alterBaseBoxRequest($this->getBaseBoxRequest(), BoxConstants::GET, $uri, $additionalHeaders);
+        return parent::requestTypeResolver($request, [], $runAsync);
+    }
+
+    /**
      * Get folder info.
      *
      * https://developer.box.com/reference#get-folder-info
