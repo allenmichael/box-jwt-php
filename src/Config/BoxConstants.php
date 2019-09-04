@@ -99,17 +99,32 @@ abstract class BoxConstants
 
     const REQUEST_OPTION_MULTIPART_FILE = 'file';
 
-    const QUERY_PARAM_FIELDS      = 'fields';
-    const QUERY_PARAM_FILTER_TERM = 'filter_term';
-    const QUERY_PARAM_LIMIT       = 'limit';
-    const QUERY_PARAM_OFFSET      = 'offset';
-    const QUERY_PARAM_RECURSIVE   = 'recursive';
-    const QUERY_PARAM_USER_TYPE   = 'user_type';
-    const QUERY_PARAM_VERSION     = 'version';
-    const QUERY_PARAM_MIN_HEIGTH  = 'min_height';
-    const QUERY_PARAM_MIN_WIDTH   = 'min_width';
-    const QUERY_PARAM_MAX_HEIGHT  = 'max_height';
-    const QUERY_PARAM_MAX_WIDTH   = 'max_width';
+    const QUERY_PARAM_ANCESTOR_FOLDER_IDS   = 'ancestor_folder_ids';
+    const QUERY_PARAM_CONTENT_TYPES         = 'content_types';
+    const QUERY_PARAM_CREATED_AT_RANGE      = 'created_at_range';
+    const QUERY_PARAM_FIELDS                = 'fields';
+    const QUERY_PARAM_FILE_EXTENSIONS       = 'file_extensions';
+    const QUERY_PARAM_FILTER_TERM           = 'filter_term';
+    const QUERY_PARAM_LIMIT                 = 'limit';
+    const QUERY_PARAM_MAX_HEIGHT            = 'max_height';
+    const QUERY_PARAM_MAX_WIDTH             = 'max_width';
+    const QUERY_PARAM_MDFILTERS             = 'mdfilters';
+    const QUERY_PARAM_MDFILTERS_FILTERS     = 'mdfilters.filters';
+    const QUERY_PARAM_MDFILTERS_SCOPE       = 'mdfilters.scope';
+    const QUERY_PARAM_MDFILTERS_TEMPLATEKEY = 'mdfilters.templateKey';
+    const QUERY_PARAM_MIN_HEIGTH            = 'min_height';
+    const QUERY_PARAM_MIN_WIDTH             = 'min_width';
+    const QUERY_PARAM_OFFSET                = 'offset';
+    const QUERY_PARAM_OWNER_USER_IDS        = 'owner_user_ids';
+    const QUERY_PARAM_QUERY                 = 'query';
+    const QUERY_PARAM_RECURSIVE             = 'recursive';
+    const QUERY_PARAM_SCOPE                 = 'scope';
+    const QUERY_PARAM_SIZE_RANGE            = 'size_range';
+    const QUERY_PARAM_TRASH_CONTENT         = 'trash_content';
+    const QUERY_PARAM_TYPE                  = 'type';
+    const QUERY_PARAM_UPDATED_AT_RANGE      = 'updated_at_range';
+    const QUERY_PARAM_USER_TYPE             = 'user_type';
+    const QUERY_PARAM_VERSION               = 'version';
 
     const QUERY_PARAM_FIELDS_VALUE_EXPIRING_EMBED_LINK = 'expiring_embed_link';
 
