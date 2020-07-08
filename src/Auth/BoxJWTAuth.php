@@ -5,7 +5,7 @@ namespace Box\Auth;
 use \Firebase\JWT\JWT;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
-use Zend\Config\Config;
+use Laminas\Config\Config;
 use Box\BoxClient;
 use Box\Config\BoxConstants;
 use Box\Config\BoxConfig;
