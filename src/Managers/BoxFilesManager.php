@@ -85,6 +85,40 @@ class BoxFilesManager extends BoxResourceManager
     }
 
     /**
+     * Upload file version.
+     *
+     * https://developer.box.com/reference/post-files-id-content
+     *
+     * @param \Box\Models\Request\BoxFileRequest                $fileRequest       BoxFileRequest instance.
+     * @param string|resource|\Psr\Http\Message\StreamInterface $file              File path, file resource or
+     *                                                                             StreamInterface instance.
+     * @param string                                            $fileID            File id to update.
+     * @param string[]                                          $additionalHeaders Additional HTTP header key-value
+     *                                                                             pairs.
+     * @param bool                                              $runAsync          Run asynchronously.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface|mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \Box\Exceptions\BoxSdkException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function uploadFileVersion(BoxFileRequest $fileRequest, $file, $fileID, $additionalHeaders = null, $runAsync = false)
+    {
+        if (!($fileRequest instanceof BoxFileRequest)) {
+            throw new BoxSdkException('The first argument supplied must be a BoxFileRequest');
+        }
+
+        // Prepare file hash for verification
+        $this->getFileHashHeader($file, $additionalHeaders);
+
+        // Prepare file
+        $options = $this->createFileUploadOption($fileRequest, $file);
+
+        $uri     = parent::createUri(sprintf(BoxConstants::FILES_NEW_VERSION_ENDPOINT_STRING, $fileID));
+        $request = parent::alterBaseBoxRequest($this->getBaseBoxRequest(), BoxConstants::POST, $uri, $additionalHeaders);
+        return parent::requestTypeResolver($request, $options, $runAsync);
+    }
+
+    /**
      * Delete file.
      *
      * https://developer.box.com/reference#delete-a-file
