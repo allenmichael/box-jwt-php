@@ -72,6 +72,12 @@ abstract class BoxConstants
     const TYPE_LOCK                        = 'lock';
     const TYPE_JWT                         = 'JWT';
 
+    const CONTENT_TYPE_NAME         = 'name';
+    const CONTENT_TYPE_DESCRIPTION  = 'description';
+    const CONTENT_TYPE_FILE_CONTENT = 'file_content';
+    const CONTENT_TYPE_COMMENTS     = 'comments';
+    const CONTENT_TYPE_TAG          = 'tag';
+
     const GRANT_TYPE      = 'grant_type';
     const CODE            = 'code';
     const CLIENT_ID       = 'client_id';
