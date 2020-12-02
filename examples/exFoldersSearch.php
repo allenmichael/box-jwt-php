@@ -25,7 +25,7 @@ $user    = $users->entries[0];
 $headers = [BoxConstants::HEADER_KEY_AS_USER => $user->id];
 $fields  = 'id,name,parent';
 
-$res        = $boxClient->foldersManager->searchFolderByName('<folder-name>', $fields, null, $headers);
+$res        = $boxClient->foldersManager->searchFolderByName('<folder-name>', 0, null, $fields, null, $headers);
 $folderItems = json_decode($res->getBody());
 
 var_dump($folderItems->entries);
