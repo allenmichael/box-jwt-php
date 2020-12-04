@@ -40,7 +40,13 @@ class BoxJWTAuth
 
     private function setPrivateKey()
     {
-        $privateKeyResource = openssl_get_privatekey(sprintf("file://%s", $this->boxConfig->jwtPrivateKey), $this->boxConfig->jwtPrivateKeyPassword);
+        if (strpos($this->boxConfig->jwtPrivateKey, '-----BEGIN ENCRYPTED PRIVATE KEY-----') === 0) {
+            // We have the actual encrypted private key; just load it
+            $privateKeyResource = openssl_get_privatekey(sprintf($this->boxConfig->jwtPrivateKey), $this->boxConfig->jwtPrivateKeyPassword);
+        } else {
+            // We have the path to the encrypted private key; just load from file
+            $privateKeyResource = openssl_get_privatekey(sprintf("file://%s", $this->boxConfig->jwtPrivateKey), $this->boxConfig->jwtPrivateKeyPassword);
+        }
         openssl_pkey_export($privateKeyResource, $privateKey);
         $this->privateKey = $privateKey;
     }

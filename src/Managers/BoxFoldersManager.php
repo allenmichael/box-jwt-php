@@ -35,6 +35,9 @@ class BoxFoldersManager extends BoxResourceManager
      * https://developer.box.com/reference#searching-for-content
      *
      * @param string   $query             Folder name query string.
+     * @param int      $offset            The offset of the item at which to begin the response.
+     * @param int      $limit             The maximum number of items to return.If none is provided,
+     *                                    the default is 100 and the maximum is 1,000.
      * @param string   $fields            Array of fields to return in response.
      * @param string   $parentId          Id of parent to start search.
      * @param string[] $additionalHeaders Additional HTTP header key-value pairs.
@@ -43,13 +46,15 @@ class BoxFoldersManager extends BoxResourceManager
      * @return \GuzzleHttp\Promise\PromiseInterface|mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function searchFolderByName($query, $fields = null, $parentId = null, $additionalHeaders = null, $runAsync = false)
+    public function searchFolderByName($query, $offset = null, $limit = null, $fields = null, $parentId = null, $additionalHeaders = null, $runAsync = false)
     {
         $urlParams = $this->keepNonEmptyParams([
             BoxConstants::QUERY_PARAM_QUERY               => $query,
-            BoxConstants::QUERY_PARAM_TYPE                => 'folder',
-            BoxConstants::QUERY_PARAM_CONTENT_TYPES       => 'name',
+            BoxConstants::QUERY_PARAM_TYPE                => BoxConstants::TYPE_FOLDER,
+            BoxConstants::QUERY_PARAM_CONTENT_TYPES       => BoxConstants::CONTENT_TYPE_NAME,
             BoxConstants::QUERY_PARAM_FIELDS              => $fields,
+            BoxConstants::QUERY_PARAM_OFFSET => $offset,
+            BoxConstants::QUERY_PARAM_LIMIT  => $limit,
             BoxConstants::QUERY_PARAM_ANCESTOR_FOLDER_IDS => $parentId,
         ]);
         $uri       = parent::createUri(BoxConstants::SEARCH_ENDPOINT_STRING, $urlParams);
