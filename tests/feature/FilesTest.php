@@ -11,13 +11,13 @@ class FilesTest extends TestCase
 
     protected $tempFileList = [];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->setupTestFolder();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->removeTempFiles();
         $this->tearDownTestFolder();
@@ -174,7 +174,7 @@ class FilesTest extends TestCase
         $this->assertEquals(200, $res->getStatusCode());
 
         $embeddedLinkObject = json_decode($res->getBody());
-        $this->assertInternalType('string', filter_var($embeddedLinkObject->expiring_embed_link->url, FILTER_VALIDATE_URL));
+        $this->assertIsString(filter_var($embeddedLinkObject->expiring_embed_link->url, FILTER_VALIDATE_URL));
     }
 
     protected function getFileThumbnail($fileId)

@@ -10,13 +10,13 @@ class FoldersTest extends TestCase
 {
     use TestHelpers;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->setupTestFolder();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->tearDownTestFolder();
         parent::tearDown();

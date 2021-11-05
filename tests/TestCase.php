@@ -31,14 +31,14 @@ abstract class TestCase extends BaseTestCase
     /** @var string */
     protected $testFolderId;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->getEnterpriseAccessToken();
         $this->getAsUser();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
     }
