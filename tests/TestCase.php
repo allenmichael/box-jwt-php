@@ -57,7 +57,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Gets the App User/Service Account enterprise access token.
      *
-     * https://developer.box.com/docs/authentication-with-jwt
+     * https://developer.box.com/guides/authentication/jwt/jwt-setup/
      *
      * @return string
      */
@@ -81,7 +81,7 @@ abstract class TestCase extends BaseTestCase
      * The email of the Box user is configured in the environment
      * variable 'AS_USER_EMAIL'.
      *
-     * https://developer.box.com/reference#as-user-1
+     * https://developer.box.com/guides/authentication/jwt/as-user/
      *
      * @return array|false|string
      */
@@ -100,6 +100,7 @@ abstract class TestCase extends BaseTestCase
      * @param bool $forceReload
      *
      * @return null|\stdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function getAsUser($forceReload = false)
     {
