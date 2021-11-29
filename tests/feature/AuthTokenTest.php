@@ -13,6 +13,6 @@ class AuthTokenTest extends TestCase
         $body   = json_decode($retVal->getBody());
 
         $this->assertStringStartsWith('AutomationUser_', filter_var($body->login, FILTER_VALIDATE_EMAIL));
-        $this->assertRegExp('/^\w{32}$/', $this->authToken);
+        $this->assertNotEmpty($this->authToken);
     }
 }

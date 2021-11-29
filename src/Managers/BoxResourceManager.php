@@ -2,11 +2,13 @@
 
 namespace Box\Managers;
 
+use Box\Config\BoxConstants;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
-use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
-use Box\Config\BoxConstants;
+use GuzzleHttp\Psr7\Uri;
+use GuzzleHttp\Psr7\Utils;
+use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -110,37 +112,40 @@ class BoxResourceManager
     /**
      * Alter the base Box (Guzzle) request.
      *
-     * @param \GuzzleHttp\Psr7\Request                                     $request           Box (Guzzle) request
-     *                                                                                        instance.
-     * @param string                                                       $method            HTTP method (verb), e.g.
-     *                                                                                        GET, POST
-     * @param string|UriInterface                                          $uri               URI string or instance.
-     * @param array                                                        $additionalHeaders Additional HTTP header
-     *                                                                                        array.
-     * @param resource|string|null|int|float|bool|StreamInterface|callable $body              HTTP body.
+     * @param \GuzzleHttp\Psr7\Request                                               $request           Box (Guzzle)
+     *                                                                                                  request
+     *                                                                                                  instance.
+     * @param string                                                                 $method            HTTP method
+     *                                                                                                  (verb), e.g.
+     *                                                                                                  GET, POST
+     * @param string|UriInterface                                                    $uri               URI string or
+     *                                                                                                  instance.
+     * @param array                                                                  $additionalHeaders Additional HTTP
+     *                                                                                                  header array.
+     * @param resource|string|int|float|bool|StreamInterface|callable|\Iterator|null $body              HTTP body.
      *
      * @return \GuzzleHttp\Psr7\Request
      */
     function alterBaseBoxRequest($request, $method = null, $uri = null, $additionalHeaders = null, $body = null)
     {
-        if ($method != null) {
+        if ($method !== null) {
             $request = $request->withMethod($method);
         }
 
-        if ($uri != null) {
+        if ($uri !== null) {
             $uri     = self::createUri($uri);
             $request = $request->withUri($uri);
         }
 
-        if ($additionalHeaders != null) {
+        if ($additionalHeaders !== null) {
             $additionalHeaders = self::mergeHeaders($this->boxClient->headers, $additionalHeaders);
             foreach ($additionalHeaders as $header => $value) {
                 $request = $request->withHeader($header, $value);
             }
         }
 
-        if ($body != null) {
-            $body    = Psr7\stream_for($body);
+        if ($body !== null) {
+            $body    = Utils::streamFor($body);
             $request = $request->withBody($body);
         }
         return $request;

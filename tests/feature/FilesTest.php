@@ -11,13 +11,13 @@ class FilesTest extends TestCase
 
     protected $tempFileList = [];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->setupTestFolder();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->removeTempFiles();
         $this->tearDownTestFolder();
@@ -137,13 +137,17 @@ class FilesTest extends TestCase
         // get file thumbnail
         $res = $this->boxClient->filesManager->getThumbnail($uploadedFileObject->id, 'png', null, null, 128, 128, $headers);
 
-        // retry once if not available
-        if ($res->getStatusCode() == 202) {
-            $retryAfter = $res->getHeader('Retry-After')[0];
+        // retry up to three times if not available
+        for ($i = 0; $i < 3; $i++) {
+            if ($res->getStatusCode() === 202) {
+                $retryAfter = $res->getHeader('Retry-After')[0];
 
-            sleep($retryAfter);
+                sleep($retryAfter);
 
-            $res = $this->boxClient->filesManager->getThumbnail($uploadedFileObject->id, 'png', null, null, 128, 128, $headers);
+                $res = $this->boxClient->filesManager->getThumbnail($uploadedFileObject->id, 'png', null, null, 128, 128, $headers);
+            } else {
+                break;
+            }
         }
 
         $this->assertEquals(200, $res->getStatusCode());
@@ -174,7 +178,7 @@ class FilesTest extends TestCase
         $this->assertEquals(200, $res->getStatusCode());
 
         $embeddedLinkObject = json_decode($res->getBody());
-        $this->assertInternalType('string', filter_var($embeddedLinkObject->expiring_embed_link->url, FILTER_VALIDATE_URL));
+        $this->assertIsString(filter_var($embeddedLinkObject->expiring_embed_link->url, FILTER_VALIDATE_URL));
     }
 
     protected function getFileThumbnail($fileId)
