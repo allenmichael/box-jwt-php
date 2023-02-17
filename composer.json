@@ -2,7 +2,7 @@
     "name": "amsxbg/box-jwt",
     "require": {
         "guzzlehttp/guzzle": "^7.2",
-        "firebase/php-jwt": "^5.2",
+        "firebase/php-jwt": "^6.0",
         "laminas/laminas-config": "^3.4",
         "laminas/laminas-dependency-plugin": "^2.1"
     },
