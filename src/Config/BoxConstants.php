@@ -150,7 +150,7 @@ abstract class BoxConstants
     ];
 
     /** Error codes ************************************************************
-     * https://developer.box.com/docs/error-codes
+     * https://developer.box.com/guides/api-calls/permissions-and-errors/common-errors/#common-error-codes
      **************************************************************************/
 
     // 400 Bad Request

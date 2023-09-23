@@ -8,3 +8,4 @@ public_key.pem
 box.config.php
 phpunit.xml
 composer.lock
+.phpunit.result.cache

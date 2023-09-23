@@ -29,8 +29,7 @@ class BoxUsersManager extends BoxResourceManager
      * If you're creating an app user, 'is_platform_access_only' must be set to true
      * in the $userRequest array.
      *
-     * https://developer.box.com/reference#create-an-enterprise-user
-     * https://developer.box.com/reference#create-app-user
+     * https://developer.box.com/reference/post-users/
      *
      * @param stirng[] $userRequest Array of user request
      * @param string   $fields      Array of fields to return in response.
@@ -51,7 +50,7 @@ class BoxUsersManager extends BoxResourceManager
     /**
      * Get enterprise user.  Only available to admin accounts or service accounts.
      *
-     * https://developer.box.com/reference#get-all-users-in-an-enterprise
+     * https://developer.box.com/reference/get-users
      *
      * @param string $userType            The type of user to search for. One of all, external or managed.
      *                                    The default is managed.

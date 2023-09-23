@@ -3,7 +3,7 @@
 /**
  * This example illustrations how to generate an enterprise access token similar to what is documented here:
  *
- * https://developer.box.com/v2.0/docs/authentication-with-jwt#section-3-generate-an-enterprise-access-token-with-box-sdks
+ * https://developer.box.com/guides/authentication/jwt/user-access-tokens/
  */
 
 require_once (__DIR__ . '/../bootstrap/autoload.php');
@@ -11,8 +11,9 @@ require_once (__DIR__ . '/exHelpers.php');
 
 use Box\Auth\BoxJWTAuth;
 use Box\BoxClient;
+use Box\Config\BoxConstants;
 
-$boxJwt     = new BoxJWTAuth();
+$boxJwt     = new BoxJWTAuth(null, __DIR__ . '/../' . BoxConstants::CONFIG_PATH);
 $boxConfig  = $boxJwt->getBoxConfig();
 $adminToken = $boxJwt->adminToken();
 $boxClient  = new BoxClient($boxConfig, $adminToken->access_token);
