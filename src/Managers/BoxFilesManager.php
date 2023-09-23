@@ -66,7 +66,7 @@ class BoxFilesManager extends BoxResourceManager
     /**
      * Get file info.
      *
-     * https://developer.box.com/reference#files
+     * https://developer.box.com/reference/resources/file/
      *
      * @param string   $id                File id.
      * @param string   $fields            Array of fields to return in response.
@@ -87,7 +87,7 @@ class BoxFilesManager extends BoxResourceManager
     /**
      * Upload a file.
      *
-     * https://developer.box.com/v2.0/reference#upload-a-file
+     * https://developer.box.com/reference/post-files-content
      *
      * @param \Box\Models\Request\BoxFileRequest                $fileRequest       BoxFileRequest instance.
      * @param string|resource|\Psr\Http\Message\StreamInterface $file              File path, file resource or
@@ -154,7 +154,7 @@ class BoxFilesManager extends BoxResourceManager
     /**
      * Delete file.
      *
-     * https://developer.box.com/reference#delete-a-file
+     * https://developer.box.com/reference/delete-files-id
      *
      * @param string   $id                File id.
      * @param string[] $additionalHeaders Additional HTTP header key-value pairs.
@@ -173,7 +173,7 @@ class BoxFilesManager extends BoxResourceManager
     /**
      * Copy a file.
      *
-     * https://developer.box.com/v2.0/reference#copy-a-file
+     * https://developer.box.com/reference/post-files-id-copy
      *
      * @param string   $sourceFileId        Source file id.
      * @param string   $destinationFolderId Destination folder id.  Root folder is always '0'.
@@ -206,7 +206,7 @@ class BoxFilesManager extends BoxResourceManager
      * download is a file path, the handle to that file will still be open and will be in the body of the response.
      * You can get the response from the exception.
      *
-     * https://developer.box.com/reference#download-a-file
+     * https://developer.box.com/reference/get-files-id-content
      *
      * @param string                                            $fileId            File id.
      * @param string|resource|\Psr\Http\Message\StreamInterface $sink              Where the downloaded file will be
@@ -231,7 +231,7 @@ class BoxFilesManager extends BoxResourceManager
     /**
      * Get file thumbnail.
      *
-     * https://developer.box.com/reference#get-a-thumbnail-for-a-file
+     * https://developer.box.com/reference/get-files-id-thumbnail-id
      *
      * From Box documentation:
      *
@@ -239,7 +239,7 @@ class BoxFilesManager extends BoxResourceManager
      * 160x160, and 320x320 can be returned in the .jpg format. Thumbnails can be generated for the image and video
      * file formats listed here:
      *
-     * http://community.box.com/t5/Managing-Your-Content/What-file-types-are-supported-by-Box-s-Content-Preview/ta-p/327
+     * https://support.box.com/hc/en-us/articles/360043695794-Viewing-Different-File-Types-Supported-in-Box-Content-Preview
      *
      * @param string   $id                File id.
      * @param string   $extension         File extension, e.g. "png" or "jpg"

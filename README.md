@@ -2,9 +2,11 @@
 
 ## Getting Started
 
-Before you can begin working on your PHP code, you'll need to configure your application settings with Box.  To start your application configuration, follow these [instructions](https://developer.box.com/v2.0/docs/configuring-box-platform).
+Before you can begin working on your PHP code, you'll need to configure your application settings with Box.  To start your application configuration, follow these [instructions](https://developer.box.com/guides/authentication/jwt/jwt-setup/).
 
 Make sure to select **OAuth 2.0 with JWT (Server Authentication)** for **Authentication Method**.
+
+For "App Access Level" select "App + Enterprise Access".
 
 Also make sure to give your application the permissions to handle files and folders.  For the purpose of the included examples, permission should be given to read and write files and perform actions as users.
 
@@ -30,6 +32,11 @@ return array(
 ```
 
 Install dependencies (assuming you already have [Composer](https://getcomposer.org/) installed).
+
+NOTE: You need Composer 2.2 LTS installed. During composer install run:
+```bash
+php composer-setup.php --2.2
+```
 
 ```bash
 composer install

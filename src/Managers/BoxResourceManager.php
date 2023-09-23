@@ -191,7 +191,7 @@ class BoxResourceManager
     }
 
     /**
-     * Resolve Box request synchronously or asyncrhonously.
+     * Resolve Box request synchronously or asynchronously.
      *
      * @param \GuzzleHttp\Psr7\Request $request Box (Guzzle) request instance.
      * @param array                    $options Guzzle request options.

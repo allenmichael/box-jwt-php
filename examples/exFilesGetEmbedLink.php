@@ -10,7 +10,7 @@ use Box\Models\Request\BoxFileRequest;
 
 $userLogin = '<box-user-login-email>';
 
-$boxJwt     = new BoxJWTAuth();
+$boxJwt     = new BoxJWTAuth(null, __DIR__ . '/../' . BoxConstants::CONFIG_PATH);
 $boxConfig  = $boxJwt->getBoxConfig();
 $adminToken = $boxJwt->adminToken();
 $boxClient  = new BoxClient($boxConfig, $adminToken->access_token);
@@ -19,7 +19,7 @@ $res   = $boxClient->usersManager->getEnterpriseUsers(null, $userLogin);
 $users = json_decode($res->getBody());
 
 if (!$users->total_count) {
-    return "No users found for $userLogin.\n";
+    die("No users found for $userLogin.\n");
 }
 
 $user    = $users->entries[0];

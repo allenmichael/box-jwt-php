@@ -32,7 +32,7 @@ class BoxFoldersManager extends BoxResourceManager
     /**
      * Search folder by name.
      *
-     * https://developer.box.com/reference#searching-for-content
+     * https://developer.box.com/reference/get-search
      *
      * @param string   $query             Folder name query string.
      * @param int      $offset            The offset of the item at which to begin the response.
@@ -65,7 +65,7 @@ class BoxFoldersManager extends BoxResourceManager
     /**
      * Get folder info.
      *
-     * https://developer.box.com/reference#get-folder-info
+     * https://developer.box.com/reference/get-folders-id
      *
      * @param string   $id                Folder id.  Root folder is always '0'.
      * @param string   $fields            Array of fields to return in response.
@@ -86,7 +86,7 @@ class BoxFoldersManager extends BoxResourceManager
     /**
      * Get folder items.
      *
-     * https://developer.box.com/reference#get-a-folders-items
+     * https://developer.box.com/reference/get-folders-id#get-folders-id-items
      *
      * @param string   $id                Folder id.  Root folder is always '0'.
      * @param int      $offset            The offset of the item at which to begin the response.
@@ -114,7 +114,7 @@ class BoxFoldersManager extends BoxResourceManager
     /**
      * Create folder.
      *
-     * https://developer.box.com/reference#create-a-new-folder
+     * https://developer.box.com/reference/post-folders/
      *
      * @param \Box\Models\Request\BoxFolderRequest $folderRequest
      * @param string[]                             $fields            Array of fields to return in response.
@@ -151,7 +151,7 @@ class BoxFoldersManager extends BoxResourceManager
     /**
      * Copy a folder.
      *
-     * https://developer.box.com/reference#copy-a-folder
+     * https://developer.box.com/reference/post-folders-id-copy/
      *
      * @param string   $sourceFolderId      Source folder id.
      * @param string   $destinationFolderId Destination folder id.  Root folder is always '0'.
@@ -180,7 +180,7 @@ class BoxFoldersManager extends BoxResourceManager
     /**
      * Delete folder.
      *
-     * https://developer.box.com/reference#delete-a-folder
+     * https://developer.box.com/reference/delete-folders-id/
      *
      * @param string   $id                Folder id.
      * @param bool     $recursive         Whether to delete this folder if it has items inside of it.
@@ -202,7 +202,7 @@ class BoxFoldersManager extends BoxResourceManager
     /**
      * Update folder.
      *
-     * https://developer.box.com/reference#update-information-about-a-folder
+     * https://developer.box.com/reference/put-folders-id/
      *
      * @param \Box\Models\Request\BoxFolderRequest $folderRequest
      * @param string[]                             $fields            Array of fields to return in response.
