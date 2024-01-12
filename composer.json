@@ -1,11 +1,11 @@
 {
     "name": "amsxbg/box-jwt",
     "require": {
-        "guzzlehttp/guzzle": "^7.2",
-        "firebase/php-jwt": "^5.2"
+        "guzzlehttp/guzzle": "^7.8",
+        "firebase/php-jwt": "^6.10"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.3"
+        "phpunit/phpunit": "^10.5"
     },
     "autoload": {
         "psr-4": {
