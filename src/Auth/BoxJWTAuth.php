@@ -2,11 +2,8 @@
 
 namespace Box\Auth;
 
-use \Firebase\JWT\JWT;
+use Firebase\JWT\JWT;
 use GuzzleHttp\Client;
-use GuzzleHttp\Promise;
-use Laminas\Config\Config;
-use Box\BoxClient;
 use Box\Config\BoxConstants;
 use Box\Config\BoxConfig;
 
@@ -33,7 +30,7 @@ class BoxJWTAuth
         if ($boxConfig != null) {
             $this->boxConfig = $boxConfig;
         } else {
-            $this->boxConfig = new BoxConfig(new Config(include $configPath));
+            $this->boxConfig = new BoxConfig(include $configPath);
         }
         $this->setPrivateKey();
     }
