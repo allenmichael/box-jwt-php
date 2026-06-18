@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Box\Models\Request\BoxFileRequest;
+use PHPUnit\Framework\Attributes\Test;
 
 class FilesTest extends TestCase
 {
@@ -24,7 +25,7 @@ class FilesTest extends TestCase
         parent::tearDown();
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_up_load_file()
     {
         $headers = $this->getAsUserHeader();
@@ -36,7 +37,7 @@ class FilesTest extends TestCase
         $this->uploadFileTestHelper($fileName, $filePath, $parentId, $headers);
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_get_file_info()
     {
         $headers = $this->getAsUserHeader();
@@ -55,7 +56,7 @@ class FilesTest extends TestCase
         $this->assertEquals($uploadedFileObject->id, $fileInfo->id);
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_copy_file()
     {
         $headers = $this->getAsUserHeader();
@@ -82,7 +83,7 @@ class FilesTest extends TestCase
         $this->assertEquals($parentId, $copiedFileParent->id);
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_download_file()
     {
         $headers = $this->getAsUserHeader();
@@ -106,7 +107,7 @@ class FilesTest extends TestCase
         $this->assertEquals($actualContent, $downloadedContent);
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_delete_file()
     {
         $headers = $this->getAsUserHeader();
@@ -123,7 +124,7 @@ class FilesTest extends TestCase
         $this->assertEquals(204, $res->getStatusCode());
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_get_file_thumbnail()
     {
         $headers = $this->getAsUserHeader();
@@ -161,7 +162,7 @@ class FilesTest extends TestCase
         $this->assertEquals('image/png', $imgSizeInfo['mime']);
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_get_file_embedded_link()
     {
         $headers = $this->getAsUserHeader();

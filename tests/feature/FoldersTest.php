@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Box\Config\BoxConstants;
 use Box\Models\Request\BoxFolderRequest;
+use PHPUnit\Framework\Attributes\Test;
 
 class FoldersTest extends TestCase
 {
@@ -22,7 +23,7 @@ class FoldersTest extends TestCase
         parent::tearDown();
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_get_folder_info()
     {
         $headers    = $this->getAsUserHeader();
@@ -34,7 +35,7 @@ class FoldersTest extends TestCase
         $this->assertEquals($parentId, $folderInfo->id);
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_create_folder()
     {
         $headers = $this->getAsUserHeader();
@@ -45,7 +46,7 @@ class FoldersTest extends TestCase
         $this->createFolderTestHelper($folderName, $parentId, $headers);
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_delete_folder()
     {
         $headers = $this->getAsUserHeader();
@@ -59,7 +60,7 @@ class FoldersTest extends TestCase
         $this->deleteFolder($createdFolderObject->id, null, $headers);
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_copy_folder()
     {
         $headers = $this->getAsUserHeader();
@@ -86,7 +87,7 @@ class FoldersTest extends TestCase
         $this->assertEquals($parentId, $copiedFolderParent->id);
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_update_folder()
     {
         $headers = $this->getAsUserHeader();
@@ -114,7 +115,7 @@ class FoldersTest extends TestCase
         $this->assertEquals($parentId, $updatedFolderParent->id);
     }
 
-    /** @test */
+    #[Test]
     public function app_user_as_user_can_get_folder_items()
     {
         $headers = $this->getAsUserHeader();
