@@ -3,10 +3,11 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class AuthTokenTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function i_can_get_auto_token()
     {
         $retVal = $this->boxClient->usersManager->getMe();
